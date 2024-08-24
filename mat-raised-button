@@ -1,0 +1,36 @@
+The mat-raised-button directive in Angular Material is used to create a raised button with specific visual styles. This directive applies styles that are part of Angular Material's design system, giving the button a raised appearance and other associated effects.
+
+
+this is a directive ise lgane s kuch effect ate hai button me
+
+Key Effects of mat-raised-button
+Raised Appearance:
+
+Shadow: Adds a shadow effect to the button, making it appear raised above the surface. This provides a 3D effect that helps the button stand out.
+Elevation: The shadow effect simulates elevation. This is often used in material design to indicate clickable elements.
+Background Color:
+
+Primary and Accent Colors: When using mat-raised-button, you can specify color="primary", color="accent", or color="warn", which applies the corresponding theme color from Angular Material’s color palette.
+Custom Colors: You can also apply custom background colors through CSS or inline styles if needed.
+Hover and Focus Effects:
+
+Hover: Changes the shadow intensity and/or background color when the button is hovered over.
+Focus: Provides visual feedback when the button is focused, often using a focus ring or changing the shadow.
+Ripple Effect:
+
+Ink Ripple: Angular Material buttons include a ripple effect on click. This is a visual feedback that expands from the click point, providing an interactive feel.
+Padding and Border Radius:
+
+Padding: Adds padding to the button for a consistent and spacious appearance.
+Border Radius: 
+  example:-
+   <button>hello</button>
+	<button mat-raised-button>hello</button> //white
+	<button mat-raised-button color="primary">Primary Button</button> //like blue
+<button mat-raised-button color="accent">Accent Button</button> //pink
+<button mat-raised-button color="warn">Warn Button</button> //red
+
+button.mat-raised-button {
+  border-radius: 4px; /* Customize border radius */
+  padding: 8px 16px; /* Customize padding */
+} //we can also customize these buttons
