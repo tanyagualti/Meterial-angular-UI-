@@ -1,0 +1,14 @@
+// customer.component.html
+	<tr *ngFor="let user of userData$ | async">
+				<td>{{user.id}}</td>
+				<td>{{user.name}}</td>
+				<td>{{user.email}}</td>
+				
+				<td>  
+    // this button is normal like html but mat-raised-button is proerty of meterial ui 
+    <button   mat-raised-button (click)="openDialog(user.id!, '0ms', '0ms')"  aria-label="Example icon button with a delete icon">
+		<mat-icon>delete</mat-icon>
+		</button>
+    
+    </td>
+			</tr>
