@@ -1,3 +1,30 @@
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from '../../interfaces/user';
+import { UserDataService } from '../../services/user-data.service';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+import {MatIconModule} from '@angular/material/icon';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+
+import { PopupComponent } from '../../popup/popup.component';
+
+@Component({
+  selector: 'app-customer',
+  standalone: true,
+  imports: [CommonModule,MatDialogModule,MatButtonModule,MatIconModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './customer.component.html',
+  styleUrl: './customer.component.css'
+})
+
+export class CustomerComponent {
+  userData$!:Observable<User[]>;
+  constructor(private user:UserDataService,private router:Router,private dialog: MatDialog) { } //instances
+
 // customer.component.html
 	<tr *ngFor="let user of userData$ | async">
 				<td>{{user.id}}</td>
@@ -5,10 +32,179 @@
 				<td>{{user.email}}</td>
 				
 				<td>  
-    // this button is normal like html but mat-raised-button is proerty of meterial ui 
+    // this button is normal like html but mat-raised-button is directive of meterial ui 
     <button   mat-raised-button (click)="openDialog(user.id!, '0ms', '0ms')"  aria-label="Example icon button with a delete icon">
 		<mat-icon>delete</mat-icon>
 		</button>
     
-    </td>
-			</tr>
+    </td></tr>
+//openDialog(user.id!, '0ms', '0ms') this is nmethod and there defination is find in customer.component.ts file in openDailog method we pass id as aparameter bcz we have to use in future this id for delete a particular user
+
+
+//The dialog.open method in Angular Material returns an instance of MatDialogRef
+
+  openDialog(userId: string,enterAnimationDuration: string, exitAnimationDuration: string): void {
+    const dialogRef=this.dialog.open(PopupComponent, {
+      width: '300px',
+     
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: { id: userId }
+    });
+
+
+explaination:
+parameters:--
+userId: string: This is a parameter passed to the method that represents the ID of the user. It’s used to pass specific data to the dialog.
+
+enterAnimationDuration: string: This parameter specifies the duration of the dialog’s enter animation. It accepts a string representing the time in milliseconds (e.g., '500ms' for 500 milliseconds).
+
+exitAnimationDuration: string: Similar to enterAnimationDuration, this parameter specifies the duration of the dialog’s exit animation.
+
+
+Opening the Dialog
+this.dialog.open(PopupComponent, {...}): This line opens an Angular Material dialog using the MatDialog service. PopupComponent is the component that will be displayed inside the dialog.
+
+dailog is the instance of MatDailog service and open() is the method od that service
+PopupComponent made by user and this is open when click the button and, call this method
+
+
+now open method k andr 5 configuration ki h
+
+width,height, enterAnimationDuration,exitAnimationDuration,data: { id: userId }
+
+data: { id: userId } lets understand this
+
+The data property in the MatDialog configuration is used to pass custom data into the dialog component.
+data: { id: userId }: Here, data is an object that contains a property id with the value of userId passed from the method parameter.
+
+Receiving Data in the Dialog Component:-
+To receive this data in the dialog component, you use Angular’s dependency injection. The MAT_DIALOG_DATA injection token is used to inject the dialog data into the dialog component.
+
+
+               id send by data property
+button------------------------>popup
+
+popup---------------------->(component me receive) receiving the id using injection token
+
+ @Inject(MAT_DIALOG_DATA) public data: { id: string }
+ Purpose: MAT_DIALOG_DATA is an Angular injection token used to inject the data passed to the dialog into the component. This data can be any type, but in your case, it's an object with an id property.
+Annotation: @Inject(MAT_DIALOG_DATA) is used to tell Angular to inject the data provided when opening the dialog. This allows the dialog component to receive the data passed through the data property in the MatDialog configuration.
+yeh anotation engular ko btata hai ki yeh inject vo data provide krayga jb dailog open hone pr vo rec krega
+]Type Declaration: The data parameter is declared with the type { id: string }, which tells TypeScript that data will be an object with an id property of type string.
+
+code:-
+popup.component.ts
+import { CommonModule } from '@angular/common';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContainer, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
+@Component({
+  selector: 'app-popup',
+  standalone: true,
+  imports: [CommonModule,MatButtonModule,MatDialogContent,MatDialogActions,MatDialogContainer],
+  templateUrl: './popup.component.html',
+  styleUrl: './popup.component.css'
+})
+export class PopupComponent {
+  constructor(private ref:MatDialogRef<PopupComponent>, @Inject(MAT_DIALOG_DATA) public data: { id: string }){}
+
+//constructor(private ref:MatDialogRef<PopupComponent>
+explain:-
+MatDailogRef is service is a service provided by Angular Material that gives you access to the dialog instance that has been opened. It allows you to interact with the dialog, such as closing it or getting its result.
+yeh srvice dailog s data rec krne me aur use close krne me help krti hai iske pass methods hote hai see in bellow
+
+Type Parameter: <PopupComponent> specifies the type of the dialog component. This type parameter helps with type safety and ensures that you are interacting with the correct type of dialog.
+type lgane s yeh esurance milti hai ki shi popup k sath work kr rhe ho
+
+  closePopup(): void {
+    this.ref.close();
+  }
+
+  delete(): void {
+    this.ref.close('confirm'); // Notify the parent component to proceed with deletion (confirm parameter is data) it close the popup with data
+  }
+}
+
+
+#customer.component.ts
+
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from '../../interfaces/user';
+import { UserDataService } from '../../services/user-data.service';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+import {MatIconModule} from '@angular/material/icon';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+
+import { PopupComponent } from '../../popup/popup.component';
+
+@Component({
+  selector: 'app-customer',
+  standalone: true,
+  imports: [CommonModule,MatDialogModule,MatButtonModule,MatIconModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './customer.component.html',
+  styleUrl: './customer.component.css'
+})
+export class CustomerComponent {
+  userData$!:Observable<User[]>;
+  constructor(private user:UserDataService,private router:Router,private dialog: MatDialog) { }
+
+  ngOnInit(): void {
+
+    this.userData$= this.user.fetchRealData();
+    
+
+  }
+ 
+
+  openDialog(userId: string,enterAnimationDuration: string, exitAnimationDuration: string): void {
+    const dialogRef=this.dialog.open(PopupComponent, {
+      width: '300px',
+     
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: { id: userId }
+    });
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') { //result agr confirm hua toh delete method call ho jyga
+        this.delete(userId); // Call delete method if confirmed
+      }
+    });
+  }
+  
+
+ delete(id:string){
+   
+    this.user.deleteData(id).subscribe((response)=>{
+          console.log("delete succesfully",response);
+         
+
+ });
+}
+
+}
+
+popup html
+
+
+<body style="background-color:#642105;color:wheat;">
+   
+  
+    <h2 style="padding: 10px;" mat-dialog-title>Delete file</h2>
+    <mat-dialog-content class="text-white">
+      Would you like to delete user?
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button class="bg-white" (click)="closePopup()" mat-button mat-dialog-close>No</button>
+      <button class="bg-white" (click)="delete()" mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+    </mat-dialog-actions>
+</body>
