@@ -1,0 +1,36 @@
+<mat-button-toggle-group align="center" #mygrp="matButtonToggleGroup">
+	<mat-button-toggle value="user">User</mat-button-toggle>
+	<mat-button-toggle value="product">Product</mat-button-toggle>
+
+</mat-button-toggle-group>
+
+
+mat-button-toggle-group this is the group of toggle button
+mat-button-toggle this is a single button
+value we have to write the value which we can get and write the functioning
+
+how to get this value  first we hava to make template variable in mat-button-toggle-group   in my cake name is #mygroup 
+but this name is not enough we have to tell why we use like matButtonTogglegroup 
+
+then we are able to get the value
+
+{{mygrp.value}
+
+@if(mygrp.value=='user'){user}
+@else{product}
+
+thats how we make the logic 
+
+we can also this value use in component
+
+<mat-button-toggle-group align="center" #mygrp="matButtonToggleGroup" (click)="toggle(mygrp)" >
+	<mat-button-toggle value="user">User</mat-button-toggle>
+	<mat-button-toggle value="product">Product</mat-button-toggle>
+
+</mat-button-toggle-group>
+
+
+toggle(val){
+
+console.log(val.vslue) //am not sure plz recheck
+}
