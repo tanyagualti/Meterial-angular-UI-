@@ -1,0 +1,55 @@
+when i run the command:- ng add angular/material
+then ask that what do you want you choose 4 pre build theme
+or custom theme 
+
+now we select custom theme 
+
+then we get one .scss file in my case file name is custom-theme.scss
+
+//this code is pre write but we have to understand this line by line
+
+Modular Import: The @use rule is part of the newer Sass module system, which replaces the older @import rule. It allows you to load Sass stylesheets as modules. This approach provides better encapsulation and avoids potential issues with naming conflicts and global scope pollution.
+
+Naming Namespace: By using as mat, you're assigning a namespace (mat) to the Angular Material styles. This means that you can access Angular Material’s mixins, functions, and variables under this namespace. For example, you can call mat.define-light-theme() or mat.mat-color().
+@use is new rule like import working both are same
+
+@use '@angular/material' as mat;  //yeh isliye use kr rhe hai ki agr hme kuch bhi angular/material library s access krna ho toh mat variable s kr skte hai
+
+@include mat.core(); //The @include mat.core(); statement is essential for setting up Angular Material’s core styles in your project yeh line angular/material k comman core components ko include krne k liye hoti hai
+
+// ab yeh three color define kr rkhe kud s  (abhi yeh color sird define kiye hai use nhi kiye)
+$theming-primary: mat.define-palette(mat.$cyan-palette,800);  $cyan-palette yeh nam decide hote hai index.scss file me jo exist krti hai node_module/@angular/meterial/index.scss me
+$theming-accent: mat.define-palette(mat.$green-palette,900);  yeh 900 800 inki shades change krne k liuye hai color palatte me pta lg jayga ki red ka 800 kesa shade provide krta hai
+$theming-warn: mat.define-palette(mat.$red-palette,900);
+
+//ab use honge
+$theming-theme: mat.define-light-theme((
+  color: (
+    primary: $theming-primary,
+    accent: $theming-accent,
+    warn: $theming-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+
+explain:-
+---> $theming-theme:  :--
+This declares a variable named $theming-theme: that will hold your custom theme configuration. This variable will be used later to apply the theme to Angular Material components.
+ ----> mat.define-light-theme:---
+This function is part of Angular Material's theming system. It creates a light theme based on the configuration you provide. There’s also a mat.define-dark-theme function for dark themes.
+---->color: (
+  primary: $theming-primary,
+  accent: $theming-accent,
+  warn: $theming-warn,
+)
+variables me yeh color declare kr rkhe hai jisse use kre
+
+-->   typography: mat.define-typography-config(), 
+yha styyle font ki custom decalre kr skte hai jese color ki ki hai
+This sets the typography configuration for the theme. mat.define-typography-config() is a mixin provided by Angular Material that applies default typography styles. You can also customize typography by providing your own configuration.
+
+//yha apply kr denge jo bhi compoonent hai project me sb pr appy ho jaygi
+@include mat.all-component-themes($theming-theme); 
+
