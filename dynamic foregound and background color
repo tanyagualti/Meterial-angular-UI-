@@ -1,0 +1,40 @@
+component.css
+  .box{
+    width:500px;
+    height:200px;
+    padding:50px;
+    font-size:30px;
+    color:white;
+}
+
+ <p class="box bg">hello</p>
+
+
+   // ab jo box ka background color hai vo dynamic rkhnge  (toh light theme forground dundna hai) bcz text ka jo color hoga vo box ka color rkhoge forground means text color
+   jb hum @angular/meterial/core/theming/platee.css me jynge
+   $light-theme-foreground-palette: (
+  base:              black,
+  divider:           $dark-dividers,
+  dividers:          $dark-dividers,
+  disabled:          $dark-disabled-text,
+  disabled-button:   rgba(black, 0.26),
+  disabled-text:     $dark-disabled-text,
+  elevation:         black,
+  hint-text:         $dark-disabled-text,
+  secondary-text:    $dark-secondary-text,
+  icon:              rgba(black, 0.54),
+  icons:             rgba(black, 0.54),
+  text:              rgba(black, 0.87),
+  slider-min:        rgba(black, 0.87),
+  slider-off:        rgba(black, 0.26),
+  slider-off-active: rgba(black, 0.38),
+);
+
+
+// in .scss file
+$foreground:map-get($theming-theme , foreground ); first parameter theming name aur second parameter kya use krna hai
+
+  .bg{
+ background-color: mat.get-color-from-palette($foreground,text); first parameter foreground variable upr wala and then kiska color use krna hai foreground me s text ka
+}
+  
