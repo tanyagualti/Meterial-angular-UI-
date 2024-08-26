@@ -1,0 +1,25 @@
+// first you have to make class in .css component file
+.primary{}
+.accent{}
+.warn{}
+//agr hum css file me color property lga denge toh yeh dynamic color nhi static color ho jayga
+//make class in html component file
+     <p class="primary display-1 text-center">primary</p>
+    <p class="accent display-1 text-center">accent</p>
+    <p class="warn display-1 text-center">warn</p>
+
+
+       // now for making dynamic color
+
+       // class make in .scss file
+         //get-color-from-palette this is the function toh get palete color  it has two parameter first variable name which is already define the theme color and second parameter has defult,lighter,darker
+       
+       .primary{
+  color:mat.get-color-from-palette($theming-primary,default);
+}
+.accent{
+  color:mat.get-color-from-palette($theming-accent,default);
+}
+.warn{
+  color:mat.get-color-from-palette($theming-warn,default);
+}
