@@ -1,3 +1,5 @@
+//for dynamic background color
+
 component.css
   .box{
     width:500px;
@@ -37,4 +39,24 @@ $foreground:map-get($theming-theme , foreground ); first parameter theming name 
   .bg{
  background-color: mat.get-color-from-palette($foreground,text); first parameter foreground variable upr wala and then kiska color use krna hai foreground me s text ka
 }
-  
+
+
+//for dynamic forground(text) color
+
+.scss file
+$background:map-get($theming-theme , background);// parameter me background islia lika qki hme background k color use krne hai
+.bg{
+
+ color:mat.get-color-from-palette($background,raised-button)
+}
+
+.html
+ <p class="box bg">hello</p>
+.css
+.box{
+    width:500px;
+    height:200px;
+    padding:50px;
+    font-size:30px;
+   
+}
