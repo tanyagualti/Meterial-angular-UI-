@@ -1,0 +1,55 @@
+// first you make custom MatModule for collecting the all mat meterial imports in one file for whole project
+
+steps:  first you make folder(appModules) then in this folder make module name mat (command: ng g m mat) so in mat folder pyu hv
+one module file this file move in matmodule folder and delete mat empty folder
+
+path is like that src/app/appModules/mat.module.ts
+
+//   an hme jo bhi imports krne honge material library k related hum isme krnge aur import k bd hme export bhi lgana pdega 
+//   jisse ab hr file me use kr skte toh do do bar likhne s acha hum ek array bna lenge aur us array ko imports and exports 
+// dono jgh pass kr denge
+
+  import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import {MatButtonModule, MatIconButton} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatRadioModule} from '@angular/material/radio';
+
+
+const meterial=[
+MatButtonModule,MatIconButton,MatIconModule,MatRadioModule
+]
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+    meterial
+  ],
+  exports:[
+    meterial
+  ]
+})
+export class MatModule { }
+
+
+
+
+//ab hme jis bhi file me yeh import krna hai wha bs MatModule import krnge hr component me same api bar bar import krne ki 
+// jrurt nhi pdegi
+
+// in component .ts file me hum ase import krnge files ko 
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { MatModule } from '../appModules/mat.module';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule, MatModule ],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css'
+})
+export class HomeComponent {
+
+}
