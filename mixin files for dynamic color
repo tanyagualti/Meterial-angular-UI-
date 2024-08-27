@@ -1,0 +1,60 @@
+(* you tube channel :UX trendz *)
+
+(* custom-theme.scss *)
+
+
+@use '@angular/material' as mat;
+
+@include mat.core();
+@import "assets/css/utility";
+
+$theming-primary: mat.define-palette(mat.$cyan-palette);
+$theming-accent: mat.define-palette(mat.$green-palette,900);
+$theming-warn: mat.define-palette(mat.$red-palette,900);
+
+
+$theming-theme: mat.define-light-theme((
+  color: (
+    primary: $theming-primary,
+    accent: $theming-accent,
+    warn: $theming-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+
+
+@include mat.all-component-themes($theming-theme);
+@include utility-mixin($theming-theme);
+
+
+(* aseets/css/utility.scss *)
+
+(* _utility.scss *)
+
+@use '@angular/material' as mat;
+
+@mixin utility-mixin($theming-theme){
+    $theming-primary: mat.define-palette(mat.$cyan-palette);
+    $theming-accent: mat.define-palette(mat.$green-palette,900);
+    $theming-warn: mat.define-palette(mat.$red-palette,900);
+    
+    $foreground:map-get($theming-theme , foreground );
+    $background:map-get($theming-theme , background);
+    .primary{
+        color:mat.get-color-from-palette($theming-primary,default);
+      }
+      .accent{
+        color:mat.get-color-from-palette($theming-accent,default);
+      }
+      .warn{
+        color:mat.get-color-from-palette($theming-warn,default);
+      }
+      .bg{
+       background-color: mat.get-color-from-palette($foreground,text);
+       color:mat.get-color-from-palette($background,raised-button)
+      }
+}
+
+
