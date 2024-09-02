@@ -1,0 +1,118 @@
+make theme service
+  ng g s services/theme
+
+
+  export class ThemeService {
+  theme:string="light";  //by default theme is light but according to methods value will change
+  constructor() {
+    // Initialize theme from localStorage or other source if needed
+    this.theme = localStorage.getItem('theme') as 'dark' | 'light' || 'light';  //getItem is the method of local storage which is used to get the value of local storage and change the value of variable and then apply body color according to this theme
+    
+    this.applyTheme(); // and then applyTheme method 
+  }
+
+  setTheme(theme:string):void{  //set theme method is used to set the value in laptop local storage from where we get the value dark or light and change every component color according to value
+    
+        this.theme=theme; //jo bhhi value setTheme method  k paramater me hogi bo set ho jaygi variable me 
+        localStorage.setItem('theme',theme); //aur whi value localstorge me fix ho jaygi
+        this.applyTheme(); //and then rrun apply method 
+  }
+
+    getTheme(): string { //this is the method of getting value of theme variable 
+       return this.theme;
+  }
+  private applyTheme(){ //here the apply method
+    // classList provides methods that simplify adding, removing, and toggling classes. This makes it easier to manage element classes without manually dealing with class strings.
+    document.body.classList.remove('dark-theme','light-theme'); //in which first jo bhi class apply hori hogi vo sbse phle remove krnge then
+    document.body.classList.add(`${this.theme}-theme`); //then jo class theme variable me hogi vo apply kr denge
+  }
+}
+
+
+//jha toogle button hai bs usi component me yeh code dalna hai
+import { Component } from '@angular/core';
+import { ThemeService } from '../services/theme.service';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-hello',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './hello.component.html',
+  styleUrl: './hello.component.css'
+})
+export class HelloComponent {
+constructor(private theme:ThemeService){}
+get isdark():boolean{
+  return this.theme.getTheme() === 'dark';
+}
+toggle():void{
+ 
+  this.theme.setTheme(this.isdark ? 'light' : 'dark');
+}
+}
+.html
+<button (click)="toggle()">toggle</button>
+
+
+// style.scss
+  @use '@angular/material' as mat;
+@import '../src/assets/css/utility.scss';
+
+// Define palettes and themes
+$theming-primary: mat.define-palette(mat.$cyan-palette);
+$theming-accent: mat.define-palette(mat.$green-palette, 900);
+$theming-warn: mat.define-palette(mat.$red-palette, 900);
+
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: $theming-primary,
+    accent: $theming-accent,
+    warn: $theming-warn,
+  )
+));
+
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $theming-primary,
+    accent: $theming-accent,
+    warn: $theming-warn,
+  )
+));
+
+// Apply the light theme styles
+@include mat.all-component-themes($light-theme);
+
+// Optionally include the dark theme styles if you're using them
+@include mat.all-component-themes($dark-theme);
+
+
+:root{
+  --background-color:red;
+}
+// Define light theme styles using CSS custom properties
+.light-theme {
+ --background-color:red;
+  
+}
+
+// Define dark theme styles using CSS custom properties
+.dark-theme {
+ --background-color:blue;
+
+ 
+}
+
+// other component
+  system.component.css
+  .container{
+    background-color: var(--background-color);
+}
+
+  
+  // but ques is that how this code apply in all components without apply any code in every component?
+
+Yes, 
+    you’re correct. When you use document.body.classList to manage themes in your ThemeService, 
+    it applies styles globally, affecting all components without needing to explicitly integrate 
+    the service into each component. 
