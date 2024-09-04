@@ -1,0 +1,35 @@
+// if we customize in style.scss so this is apply in every component
+see this code
+
+// style.scss (global style file)
+// this class is not custom clss it is angular class which is predefined i find this in google inspect and change theproperty according to my needs
+// but problem is that evry snackbar this gereen r will aply so i want to add conponent specific style
+.mat-mdc-snack-bar-container{
+  --mdc-snackbar-container-color: #17580ce9 !important;
+   --mdc-snackbar-supporting-text-line-height: 60px;
+  box-shadow: 0px 0px 5px #17580ce9;
+  --mdc-snackbar-supporting-text-size: 20px;
+}
+
+
+login.component.css (this is login page where snackbar is show)
+
+
+openSnackBar() {
+  this._snakBar.openFromComponent(SucessComponent, {    //sucesscomponent is other component where snackbar exist
+    duration: this.durationInSeconds * 1000,horizontalPosition:'center',
+    verticalPosition:'bottom',
+    panelClass:['snackbar-1']  in this i make the panel classs and use this in same component scss or css file
+  });
+}
+
+login.component.scss
+
+::ng-deep .snackbar-1{
+    --mdc-snackbar-container-color: #17580ce9; //mdc all property finc from  google developer tool
+    --mdc-snackbar-container-color: #17580ce9 !important;
+    --mdc-snackbar-supporting-text-line-height: 60px;
+    box-shadow: 0px 0px 5px #17580ce9;
+    --mdc-snackbar-supporting-text-size: 20px;
+}
+
