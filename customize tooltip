@@ -1,0 +1,14 @@
+ <button  matTooltip="change the mode"
+              matTooltipClass="search" 
+    matTooltipPosition="right" //above,left,right,below
+   mat-icon-button (click)="toggleTheme()">
+                <mat-icon>{{ isDarkTheme ? 'brightness_4' : 'brightness_7' }}</mat-icon>
+              </button>
+
+   first give the class name like this  matTooltipClass="search" and select this class in component.css file
+ and change the color ,font,height,width in thia but we have to write ::ng-deep for component specific changes 
+   
+ ::ng-deep .search{
+	--mdc-plain-tooltip-container-color:rgba(0,0,0,0.5);
+ }
+  
