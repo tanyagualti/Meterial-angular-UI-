@@ -1,0 +1,30 @@
+ <li class="nav-item">
+                    <a
+                      class="dropdown-item"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      tabindex="2"
+                      routerLink="/about"
+                      >About Staff</a
+                    >
+                  </li>
+                  <mat-divider></mat-divider>
+                  <li class="nav-item">
+                    <a
+                      class="dropdown-item"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      tabindex="2"
+                      routerLink="/about/company"
+                      >About Company</a
+                    >
+   </li>
+
+component.css
+   ::ng-deep .mat-divider{
+	
+		--mat-divider-color: rgba(0, 0, 0, 0.4);
+	
+  }
+
+   
