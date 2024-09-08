@@ -1,0 +1,59 @@
+# for scrolling we use wow.js library
+link=	<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" integrity="sha512-Eak/29OTpb36LLo2r47IpVzPBLXnAMPAVypbSZiZ4Qkf8p/7S/XRG5xp7OKWPPYfJT6metI+IORkR5G8F900+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+# and make the object for use
+<script>
+	new WOW().init();
+</script>
+
+# for animation we use animate.css library
+
+	<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+  example
+class=" wow animate__animated animate__fadeIn animate__slower" this is use in every element
+
+# if we want that one element come after other so we use variables for delay like that
+<style>
+		.anime{
+			--animate-duration:var(--i)*0.3s;
+		  }
+	</style>
+  
+    <section id="winners">
+		<div class="container">
+			<div class="text">
+				<h1 class="wow animate__animated animate__slideInLeft">yay! big win with ramaexch</h1>
+				<h3>no limits for winners</h3>
+			</div>
+			<div class="row">
+				
+				<div class="col-md-3" style="--i:2;">
+					<div class="anime sports wow animate__animated animate__fadeIn animate__slower">
+						<img src="images/landLivesport.png" alt="" class="img-fluid">
+						<h3>live sports</h3>
+						<button class="btn play-buttton">play now</button>
+					</div>
+				</div>
+				<div class="col-md-3" style="--i:4;">
+					<div class="anime sports wow animate__animated animate__fadeIn animate__slower">
+						<img src="images/landSportbetting.png" alt="" class="img-fluid">
+						<h3> sports betting</h3>
+						<button class="btn play-buttton">play now</button>
+					</div>
+				</div>
+				
+				<div class="col-md-3" style="--i:5;">
+					<div class="anime sports wow animate__animated animate__fadeIn animate__slower">
+						<img src="images/landSlot.png" alt="" class="img-fluid">
+						<h3>slot</h3>
+						<button class="btn play-buttton">play now</button>
+					</div>
+				</div>
+				</div>
+				
+			</div>
+	
+	</section>
